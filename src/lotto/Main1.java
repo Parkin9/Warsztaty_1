@@ -8,16 +8,11 @@ public class Main1 {
 
 	public static void main(String[] args) {
 		
-		int[] arr = new int[49];
+		Integer[] arr = new Integer[49];
+		int[] drawResult = new int[6];
 		int[] guess = new int[6]; 
 		int choice = 0;
-		
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = i;
-		}
-		Collections.shuffle(Arrays.asList(arr));
-		// array with shuffled numbers, from 1 to 49
-		
+				
 		Scanner scan = new Scanner(System.in);
 		System.out.println("\tWitam Cię w \"LOTTO - The Game\".\n\nWytypuj 6 liczb i sprawdź czy szczęście Ci sprzyja.\nLiczby muszą być wybrane z zakresu 1-49.\n\tPowodzenia!\n");
 						
@@ -43,10 +38,59 @@ public class Main1 {
 				i--;
 			}
 		}
+		Arrays.sort(guess);
 		
-		System.out.println(Arrays.toString(guess)); //test line
+		pauser(200);
+		System.out.println("\nWytypowane przez Ciebie liczby to: "+"\n\t"+Arrays.toString(guess));
+		System.out.println("________________________________________");
+		pauser(2000);
+		System.out.println("\nZa chwilę nastąpi zwolnienie blokady maszyny losującej.");
+		pauser(3000);
+		System.out.println("\nZwolnienie blokady.");
+		
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = i+1;
+		}
+		Collections.shuffle(Arrays.asList(arr));
+		// array with shuffled numbers, from 1 to 49
+		
+		pauser(1000);
+		System.out.println("Losowanie...");
+		pauser(500);
+		String loadAnim = "";
+		for (int i=0; i<drawResult.length; i++) {
+			drawResult[i] = arr[i];
+		}
+		for (int j=0; j<40; j++) {
+			loadAnim = ("|");
+			System.out.print(loadAnim);
+			pauser(130);
+		}
+		pauser(800);
+		System.out.println("\n\nWylosowane liczby to: \n\t"+Arrays.toString(drawResult));
 		
 		scan.close();
+		int counterWin = 0;
+		for (int i=0; i<drawResult.length; i++) {
+			for (int j=0; j<guess.length; j++) {
+				if (drawResult[i] == guess [j]) {
+					counterWin++;
+				}
+			}
+		}
+		System.out.println("________________________________________\n");
+		pauser(1000);
+		if (counterWin == 3) {
+			System.out.println("Gratulacje! Trawiłeś \"trójkę\".\nWygrywasz 9 PLN i tonę satysfakcji.");
+		} else if (counterWin == 4) {
+			System.out.println("Gratulacje! Trawiłeś \"czwórkę\".\nWygrywasz Poloneza - magnes na dupeczki.");
+		} else if (counterWin == 5) {
+			System.out.println("Gratulacje! Trawiłeś \"piątkę\".\nWygrywasz kosz owoców i coś tam jeszcze.");
+		} else if (counterWin == 6) {
+			System.out.println("Gratulacje! Trawiłeś \"szóstkę w Totka\".\nWygrywasz wczasy, latawca, cztery korniszony i miliardy Yenów.");
+		} else {
+			System.out.println("Niestety nieudało Ci się nic wygrać.\nPrzemyśl swoje zachowanie i spróbuj raz jeszcze.");
+		}
 	}
 	
 		static boolean checkValue(int[] tab, int search) {
@@ -59,11 +103,12 @@ public class Main1 {
 		}
 		// method checks if the number is in the array
 		
-//		static String counterShots() {
-//			String str = "";
-//			for (int i=0; i<=6; i++) {
-//				str = ("Podaj "+i+". liczbę: ");
-//				return str;
-//			}
-//		}
+		static void pauser(int milisec) {
+			try {
+				Thread.sleep(milisec);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
 }
