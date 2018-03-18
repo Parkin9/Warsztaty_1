@@ -10,7 +10,6 @@ public class Main1 {
 		Scanner scan = new Scanner(System.in);
 		
 		int rand = randNumbers();
-		//System.out.println("Test: "+rand);
 		System.out.println("Wpisz liczbę (1-100): ");
 		int guess = 0;
 		while (true) {
